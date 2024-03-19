@@ -1,3 +1,33 @@
+personnage = {
+    "PV": 70,
+    "Badges" : 0,
+    "Yen" : 500
+}
+
+jutsus = {
+    "Rasengan": 20,
+    "Chidori": 25,
+    "Kirin": 30,
+    "Amaterasu": 15,
+    "Tsukuyomi": 10,
+    "Susanoo": 30,
+    "Flying Raijin Jutsu": 20,
+    "Eight Trigrams Sixty-Four Palms": 15
+}
+
+plats_stock = {
+    "Sushi" : 2,
+    "Ramen" : 2,
+    "Tempura" : 2,
+    "Sashimi" : 2,
+    "Udon" : 2,
+    "Yakitori" : 2,
+    "Okonomiyaki" : 2,
+    "Takoyaki" : 2,
+    "Tonkatsu" : 2,
+    "Miso soup" : 2
+}
+plat_cle = list(plats_stock)
 
 lieux_AU = {
     "Hall": {
@@ -5,7 +35,7 @@ lieux_AU = {
         "actions": ["Observer", "Carte d'identité","Quitter"]
     },
     "CouloirRDC": {
-        "lieux": ["Couloir 1e étage", "Classe 1-A"],
+        "lieux": ["Couloir 1e étage", "Classe 1-A","Hall"],
         "actions": ["Observer"]
     },
     "Classe1A": {
@@ -42,32 +72,5 @@ lieux_AU = {
     }
 }
 
-def proposer_action_lieu(lieu, choix):
-    if choix == "lieu":
-        print("│ [Lieux] ")
-        for li in lieux_AU[lieu]["lieux"]:
-            print("|  " + str(lieux_AU[lieu]['lieux'].index(li) + 1) + "- " + li)
-    elif choix == "action":
-        print("│ [Actions] ")
-        for ac in lieux_AU[lieu]["actions"]:
-            print("|  " + str(lieux_AU[lieu]['actions'].index(ac) + 1) + "- " + ac)
-
-def verif_int(texte, lim):
-    while True:
-        valeur = input(texte)
-        if valeur.isdigit() and int(valeur) >= 0 and int(valeur) <= lim:
-            return int(valeur)
-        else:
-            print("Veuillez entrer un nombre entier valable.")
-
-def fonc_chang_lieu(taille,lieu):
-    proposer_action_lieu(lieu,"lieu")
-    reponse_lieu = verif_int("> ", len(lieux_AU[lieu]["lieux"]))
-    for i in range (taille+1):
-        if reponse_lieu == i :
-            return lieux_AU[lieu]["lieux"][i-1]
-
-
-proposer_action_lieu("Rue","lieu")
-a = fonc_chang_lieu(len(lieux_AU["Rue"]["lieux"]),"Rue")
-print(a)
+objets_cles = ["smartphone","Clé"]
+inventaire_nourriture = {}
