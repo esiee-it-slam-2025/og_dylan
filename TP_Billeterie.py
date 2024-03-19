@@ -136,8 +136,8 @@ while True:
             time.sleep(1)
             os.system("cls")
         else:
+            os.system("cls")
             for i, trajet in enumerate(trajets, start=1):
-                os.system("cls")
                 print(f"\nTrajet {i}:")
                 resume(trajet)
                 print("\n")
