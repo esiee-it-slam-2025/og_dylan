@@ -1,3 +1,9 @@
+IMPORTANT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    pip install pillow  
+
+commande nécessaire afin que l'interface graphique fonctionne.
+
 Afin de lancer le jeu, vérifier bien que les fichiers soient tous dans un seul et même dossier. Les images doivent êtres dans un dossier "images".
 Dans le main, veuillez modifier le chemin d'accès au dossier images (position indiquée avec des flèches)
 Format du chemin d'accès : " .../.../.../images/"
