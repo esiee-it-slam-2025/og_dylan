@@ -1,5 +1,5 @@
 import os,time,sys,random
-from donnees_personnage import *
+from donnees import *
 from main import *
 from lieux import *
 
@@ -37,6 +37,8 @@ def affich_perso():
     for attribut, valeur in personnage.items():
         print(f"{attribut} : {valeur}")
 
+
+
 def observ_lieu(lieu):
     descriptions_lieux = {
         "Hall": "Le hall d'entrée est spacieux et accueillant, orné de portraits décoratifs et de bancs confortables pour se reposer.",
@@ -47,12 +49,13 @@ def observ_lieu(lieu):
         "SalleEntrainement": "La salle d'entraînement résonne des efforts des élèves, empreinte d'une énergie motivante et de détermination.",
         "Casier": "Pas grand chose à dire à part que c'est votre casier. Il est rempli de poussière et de parchemins.",
         "Rue": "La rue est animée par l'activité environnante, avec des passants qui vont et viennent, des voitures qui klaxonnent et des enseignes lumineuses clignotantes.",
-        "Aéroport": "L'aéroport est un lieu animé, rempli de voyageurs pressés, de guichets d'enregistrement et du bruit des annonces intercom."
-    }
+        "Aéroport": "L'aéroport est un lieu animé, rempli de voyageurs pressés, de guichets d'enregistrement et du bruit des annonces intercom.",
+        "Casino": "Le casino est un endroit animé et lumineux, rempli du son des machines à sous, du cliquetis des jetons de jeu et de l'excitation des joueurs."
+    } 
 
     print(descriptions_lieux[lieu])
     time.sleep(4)
-    os.system("cls")    
+    os.system("cls")   
 
 def proposer_action_lieu(lieu, choix):
     if choix == "lieu":
@@ -87,16 +90,11 @@ def fight():
                 time.sleep(1)
                 os.system("cls")
             else:
-                print("Liste des plats de l'inventaire :")
-                for index, plat in enumerate(inventaire_nourriture.keys(), start=1):
-                    print(f"{index}. {plat}")
-                manger = verif_int("Que voulez-vous manger?\n", len(inventaire_nourriture)) 
-                plat_selectionne = list(inventaire_nourriture.keys())[manger - 1]
-                print("Vous avez mangé "+plat_selectionne+" et vous avez gagné 10 PV.")
-                del inventaire_nourriture[plat_selectionne] 
-                personnage["PV"] += 10
+                eat(inventaire_nourriture)
+                print("Le mannequin réplique et envoie son poing malicieux! -"+str(mannequin_degat)+" PV pour vous.")
                 time.sleep(2)
-                os.system("cls")
+                os.system("cls") 
+                personnage["PV"] -= mannequin_degat
 
         elif reponse_action == 3:
             print("Vous décidez de fuir le combat..")
@@ -115,31 +113,35 @@ def fight():
             time.sleep(4)
             os.system("cls") 
             personnage["Badges"] += 1
+            continue
         
         print("PV restants de ",personnage["Prénom"],":", personnage["PV"])
         print("PV restants du mannequin :", mannequin_pv)
         print("\n")
 
-def affich_eat():
+def affich_eat(inventory):
     print("Liste des plats.")
-    for index, plats in enumerate(plats_stock, start=1):
+    for index, plats in enumerate(inventory, start=1):
         print(index,". ",plats)
 
-def eat():
+def eat(inventory):
     print("Que voulez-vous manger ?")
-    affich_eat()
-    reponse_plat = verif_int("├─>",len(plats_stock))
-    plat_selectionne = plat_cle[reponse_plat - 1]
+    affich_eat(inventory)
+    reponse_plat = verif_int("├─>",len(inventory))
+    plat_selectionne = list(inventory.keys())[reponse_plat-1]
     personnage["PV"] += 10
-    plats_stock[plat_selectionne] -= 1
-    os.system("cls") 
-    print("Vous mangez ",plat_selectionne)
-    print("Vous gagnez 10 PV.")
-    if plats_stock[plat_selectionne] == 0:
-        print("Il n'y aura plus de stock pour ce plat.")
-        del plats_stock[plat_selectionne]
+    if plat_selectionne in inventory:
+        inventory[plat_selectionne] -= 1
+        os.system("cls") 
+        print("Vous mangez ",plat_selectionne)
+        print("Vous gagnez 10 PV.")
+        if inventory[plat_selectionne] == 0:
+            print("Il n'y aura plus de stock pour ce plat.")
+            del inventory[plat_selectionne]
+    else:
+        print("Ce plat n'est plus disponible.")
     time.sleep(2)
-    os.system("cls") 
+    os.system("cls")
 
 def secret1():
     print("| La malveillance max, vous avez trouvé quelque chose de secret.")
@@ -152,3 +154,65 @@ def secret1():
             jutsus["!!Susanoo Parfait!!"] = 40
             personnage["Jutsu"] = "!!Susanoo Parfait!!"
             print("| Susanoo Parfait équipé. :)")
+
+def start_roul():
+    return random.randint(0, 36)
+
+def jeu_de_roulette():
+    while personnage["Yen"] > 0:
+        print("Vous allez jouer au jeu de la roulette !")
+        print("Vous pouvez parier sur un numéro entre 0 et 36, ou sur une couleur (rouge ou noir).")
+        print("Votre solde actuel est de ",personnage["Yen"]," ¥ ")
+        mise = verif_int("Combien voulez-vous parier ? (Entrez 0 pour quitter) : ",personnage["Yen"])
+
+        if mise == 0:
+            print("Merci d'avoir joué ! À la prochaine !")
+            break
+
+        choix = input("Sur quel numéro ou couleur voulez-vous parier ? (0-36, Rouge, Noir) : ").lower()
+
+        if choix.isdigit():
+            numero_choisi = int(choix)
+            if numero_choisi < 0 or numero_choisi > 36:
+                print("Numéro invalide. Veuillez choisir un numéro entre 0 et 36.")
+                continue
+        elif choix == "rouge" or choix == "noir":
+            couleur_choisie = choix
+        else:
+            print("Choix invalide. Veuillez choisir un numéro entre 0 et 36, ou Rouge ou Noir.")
+            continue
+        
+        for i in range(15):
+            num_choisi = start_roul()
+            if num_choisi % 2 == 1 and num_choisi != 0:
+                print(colors.rouge + str(num_choisi) + colors.init)
+            else:
+                print(colors.bleu + str(num_choisi) + colors.init)
+            time.sleep(0.3)
+            os.system("cls")
+
+        print("La roulette s'est arrêtée sur le numéro ",num_choisi,".")
+        time.sleep(2)
+        if choix.isdigit():
+            if num_choisi == numero_choisi:
+                print("Vous avez gagné !")
+                personnage["Yen"] += mise * 36
+            else:
+                print("Vous avez perdu !")
+                personnage["Yen"] -= mise
+        elif couleur_choisie == "rouge":
+            if num_choisi % 2 == 1 and num_choisi != 0:
+                print("Vous avez gagné !")
+                personnage["Yen"] += mise
+            else:
+                print("Vous avez perdu !")
+                personnage["Yen"] -= mise
+        elif couleur_choisie == "noir":
+            if num_choisi % 2 == 0:
+                print("Vous avez gagné !")
+                personnage["Yen"] += mise
+            else:
+                print("Vous avez perdu !")
+                personnage["Yen"] -= mise
+    if personnage["Yen"] <= 0:
+        print("Votre solde est épuisé. N'oubliez pas, le casino est toujours gagnant ! :)")

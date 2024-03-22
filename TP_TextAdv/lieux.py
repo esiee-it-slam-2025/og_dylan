@@ -1,5 +1,5 @@
 import os,time,sys,random
-from donnees_personnage import *
+from donnees import *
 from main import *
 from fonction_utilitaires import *
 
@@ -110,6 +110,8 @@ def lieu_classe_1A():
                         print("| Vous avez réussi le jeu.")
                         print("| Félicitations!")
                         sys.exit()
+                    else:
+                        print("| Professeur : Vous avez ",personnage["Badges"]," badges ! Continuez ainsi :)")
                 print("| Vous n'avez pas de badges pour le moment.")
                 time.sleep(3)
                 os.system("cls") 
@@ -171,16 +173,16 @@ def lieu_cafeteria_1e_etage():
                 os.system("cls")
                 observ_lieu("Caféteria")
             elif reponse_action == 2:
-                eat()
+                eat(plats_stock)
             elif reponse_action == 3:
                 os.system("cls")
                 if personnage["Yen"] < 75 :
                     print("| Vous n'avez pas assez d'argents...")
                 else:
                     print("| Que souhaitez-vous acheter ? 75¥ unité.")
-                    affich_eat()
+                    affich_eat(plats_stock)
                     reponse_plat = verif_int("├─>", len(plats_stock))
-                    plat_selectionne = plat_cle[reponse_plat - 1]
+                    plat_selectionne = list(plats_stock.keys())[reponse_plat-1]
                     if plats_stock[plat_selectionne] > 0:
                         if plat_selectionne in inventaire_nourriture:
                             inventaire_nourriture[plat_selectionne] += 1
@@ -195,7 +197,6 @@ def lieu_cafeteria_1e_etage():
                             print("| Il n'y aura plus de stock pour ce plat.")
                             time.sleep(2)
                             del plats_stock[plat_selectionne]
-                            plat_cle.remove(plat_selectionne)
 
         print("└────────────────────────────────────────")
 
@@ -274,6 +275,8 @@ def lieu_rue():
                 return "Hall"
             elif reponse_lieu == 2:
                 return "Aéroport"
+            elif reponse_lieu == 3:
+                return "Casino"
         elif choix == 2 :
             proposer_action_lieu("Rue","action")
             reponse_action = verif_int("├─> ",len(lieux_AU["Rue"]["lieux"]))
@@ -333,5 +336,7 @@ def lieu_casino():
             elif reponse_action == 2:
                 os.system("cls")
                 print("Bienvenue dans le monde de l'ARGENT.\nIci, tu peux soit partir en slip, soit en costard.")
+                time.sleep(2)
+                jeu_de_roulette()
                 time.sleep(2)
         print("└────────────────────────────────────────")

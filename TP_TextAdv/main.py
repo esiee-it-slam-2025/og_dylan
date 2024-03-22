@@ -1,11 +1,40 @@
-import os,time,sys,random
-from donnees_personnage import *
+import os
+import time
+import tkinter as tk
+from PIL import Image, ImageTk
+from donnees import *
 from lieux import *
 from fonction_utilitaires import *
 
-# ****************************************************************************************************************************************************************
-# /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  INTRODUCTION
-# ****************************************************************************************************************************************************************
+class Interface:
+    def __init__(interface):
+        interface.img = tk.Tk()
+        interface.img.title("~~~~~~~~~~~~~~~~~~~~~~~~~~~LYCEE AU~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+
+        interface.img_display = tk.Label(interface.img)
+        interface.img_display.pack()
+
+        interface.emplacement = "Hall"
+        interface.maj_lieu(interface.emplacement)
+
+    def maj_lieu(interface, nom_lieu):
+        chemin_image = f"C:/Users/MoPiM/Desktop/portfolio/python/og_dylan/TP_TextAdv/images/{nom_lieu}.jpg"
+        image = Image.open(chemin_image)
+
+        # Redimensionner l'image à une taille de 720x480
+        image_resized = image.resize((720, 480), Image.Resampling.BILINEAR )
+        photo = ImageTk.PhotoImage(image_resized)
+
+        interface.img_display.config(image=photo)
+        interface.img_display.image = photo
+
+    def chang_lieu(interface, nouvel_emplacement):
+        interface.emplacement = nouvel_emplacement
+        interface.maj_lieu(interface.emplacement)
+
+    def lancer(interface):
+        interface.img.mainloop()
+
 def intro():
     os.system("cls")
     print("      ////////    ///  ///")
@@ -19,33 +48,25 @@ def intro():
     create_perso()
     time.sleep(2)
     os.system("cls")
-    
-    emplacement = "Hall"
+
+    interface = Interface()
+    lieux = {
+        "Hall": lieu_hall,
+        "CouloirRDC": lieu_couloir_rdc,
+        "Classe1A": lieu_classe_1A,
+        "Couloir1E": lieu_couloir_1e_etage,
+        "Caféteria": lieu_cafeteria_1e_etage,
+        "SalleEntrainement": lieu_salle_entrainement,
+        "Casier": lieu_casier,
+        "Rue": lieu_rue,
+        "Aéroport": lieu_aeroport,
+        "Casino": lieu_casino
+    }
+
     while True:
-        if emplacement == "Hall":
-            emplacement = lieu_hall()
-        elif emplacement == "CouloirRDC":
-            emplacement = lieu_couloir_rdc()
-        elif emplacement == "Classe1A":
-            emplacement = lieu_classe_1A()
-        elif emplacement == "Couloir1E":
-            emplacement = lieu_couloir_1e_etage()
-        elif emplacement == "Caféteria":
-            emplacement = lieu_cafeteria_1e_etage()
-        elif emplacement == "SalleEntrainement":
-            emplacement = lieu_salle_entrainement()
-        elif emplacement == "Casier":
-            emplacement = lieu_casier()
-        elif emplacement == "Rue":
-            emplacement = lieu_rue()
-        elif emplacement == "Aéroport":
-            emplacement = lieu_aeroport()
+        emplacements = lieux[interface.emplacement]()
+        interface.chang_lieu(emplacements)
 
-# ****************************************************************************************************************************************************************
-# /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  EXECUTION
-# ****************************************************************************************************************************************************************
-
-# Pour lancer le jeu, on appelle la fonction d'introduction
 if __name__ == "__main__":
     intro()
     print("Fin du jeu.")
