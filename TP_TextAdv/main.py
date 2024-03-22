@@ -18,10 +18,9 @@ class Interface:
         interface.maj_lieu(interface.emplacement)
 
     def maj_lieu(interface, nom_lieu):
-        chemin_image = f"C:/Users/MoPiM/Desktop/portfolio/python/og_dylan/TP_TextAdv/images/{nom_lieu}.jpg"
+        chemin_image = f"C:/Users/MoPiM/Desktop/python/dydy/og_dylan/TP_TextAdv/images/{nom_lieu}.jpg"
         image = Image.open(chemin_image)
 
-        # Redimensionner l'image à une taille de 720x480
         image_resized = image.resize((720, 480), Image.Resampling.BILINEAR )
         photo = ImageTk.PhotoImage(image_resized)
 
