@@ -6,6 +6,7 @@ from donnees import *
 from lieux import *
 from fonction_utilitaires import *
 
+# Classe pour afficher les images en fonction des lieux et naviguer dans le jeu
 class Interface:
     def __init__(interface):
         interface.img = tk.Tk()
@@ -18,7 +19,7 @@ class Interface:
         interface.maj_lieu(interface.emplacement)
 
     def maj_lieu(interface, nom_lieu):
-        chemin_image = f"C:/Users/MoPiM/Desktop/python/dydy/og_dylan/TP_TextAdv/images/{nom_lieu}.jpg"
+        chemin_image = f"C:/Users/MoPiM/Desktop/python/dydy/og_dylan/TP_TextAdv/images/{nom_lieu}.jpg" # <---------------------- VEUILLEZ CHANGER LE CHEMIN D'ACCES ICI POUR POUVOIR AFFICHER LES IMAGES
         image = Image.open(chemin_image)
 
         image_resized = image.resize((720, 480), Image.Resampling.BILINEAR )
@@ -34,6 +35,7 @@ class Interface:
     def lancer(interface):
         interface.img.mainloop()
 
+# LE MAIN
 def intro():
     os.system("cls")
     print("      ////////    ///  ///")

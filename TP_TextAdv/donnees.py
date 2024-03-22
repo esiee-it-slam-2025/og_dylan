@@ -1,20 +1,57 @@
+# Dictionnaire pour le personnage
 personnage = {
+    "Prénom" : None,
+    "Âge" : None,
     "PV": 70,
+    "Jutsu" : None,
     "Badges" : 0,
-    "Yen" : 500
+    "Yen" : 500,
 }
 
+# Dictionnaire pour le mannequin
+mannequin = {
+    "PV" : 50,
+    "DMG_min" : 7,
+    "DMG_max" : 25
+}
+
+# Dictionnaire pour les pouvoirs
 jutsus = {
-    "Rasengan": 20,
-    "Chidori": 25,
-    "Kirin": 30,
-    "Amaterasu": 15,
-    "Tsukuyomi": 10,
-    "Susanoo": 30,
-    "Flying Raijin Jutsu": 20,
-    "Eight Trigrams Sixty-Four Palms": 15
+    "Rasengan": {
+        "dégat" : 20,
+        "niveau" : 5,
+    },
+    "Chidori": {
+        "dégat": 25,
+        "niveau": 0,
+    },
+    "Kirin": {
+        "dégat": 30,
+        "niveau": 0,
+    },
+    "Amaterasu": {
+        "dégat": 15,
+        "niveau": 0,
+    },
+    "Tsukuyomi": {
+        "dégat": 10,
+        "niveau": 0,
+    },
+    "Susanoo": {
+        "dégat": 30,
+        "niveau": 0,
+    },
+    "Flying Raijin Jutsu": {
+        "dégat": 20,
+        "niveau": 0,
+    },
+    "Eight Trigrams Sixty-Four Palms": {
+        "dégat": 15,
+        "niveau": 0,
+    }
 }
 
+# Dictionnaire pour les plats en stocks
 plats_stock = {
     "Sushi" : 2,
     "Ramen" : 2,
@@ -28,6 +65,7 @@ plats_stock = {
     "Miso soup" : 2
 }
 
+# Dictionnaire pour afficher les différents lieux, leurs lieux possibles d'accès et leurs actions
 lieux_AU = {
     "Hall": {
         "lieux": ["Aller au Couloir RDC","Ouvrir son Casier", "Sortir du Lycée AU"],
@@ -51,7 +89,7 @@ lieux_AU = {
     },
     "SalleEntrainement": {
         "lieux": ["Sortir de la Salle D'entraînement"],
-        "actions": ["Observer", "Combattre"]
+        "actions": ["Observer", "Combattre","Améliorer son jutsu"]
     },
     "Casier":{
         "lieux": ["Fermer son Casier"],
@@ -71,10 +109,15 @@ lieux_AU = {
     }
 }
 
-objets_cles = ["smartphone"]
+# Liste objet clé
+objets_cles = []
+
+# Dictionnaire inventaire nourriture
 inventaire_nourriture = {}
 
+# Class pour changer la couleur du texte dans la console
 class colors:
     init = '\033[0m'
     rouge = '\033[31m'
     bleu = '\033[34m'
+    vert = '\033[32m'

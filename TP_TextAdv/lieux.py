@@ -97,10 +97,15 @@ def lieu_classe_1A():
                     print("| Dans les confins du casier, où les secrets se cachent derrière chaque porte, il est chemin à suivre, un choix à faire.\nExplorez les actions disponibles, mais ne vous laissez pas distraire par les chemins familiers. \nCherchez plutôt le chemin moins fréquenté, celui qui dévoile des trésors cachés.\n\nDans un jardin énigmatique, trois roses émergent parmi les pétales. Trouvez le nombre de leurs secrets pour dévoiler la voie. \n\nDans l'année où Conan, le célèbre détective adolescent, a résolu ses premiers mystères, quel nombre révèle le secret dissimulé dans les ombres du passé ?")
                     quitter = input("Appuyez pour quitter..")
             elif reponse_action == 2:
-                print("| Le professeur vous donne le passe pour la salle d'entraînement.")
-                time.sleep(3)
-                os.system("cls") 
-                objets_cles.append("Clé")
+                if "Clé" not in objets_cles:
+                    print("| Le professeur vous donne le passe pour la salle d'entraînement.")
+                    time.sleep(3)
+                    os.system("cls") 
+                    objets_cles.append("Clé")
+                else:
+                    print("Vous avez déjà la clé.")
+                    os.system("cls")
+                    time.sleep(2)
             elif reponse_action == 3:
                 if personnage["Badges"] != 0:
                     print("| Vous montrez vos badges au professeur.")
@@ -191,7 +196,7 @@ def lieu_cafeteria_1e_etage():
                         plats_stock[plat_selectionne] -= 1
                         print("| Vous avez acheté le plat : ",plat_selectionne)
                         personnage["Yen"] -= 75
-                        print("| Solde mis à jour : ",personnage["Yen"])
+                        print("| Solde mis à jour :",personnage["Yen"],"¥")
                         time.sleep(2)
                         if plats_stock[plat_selectionne] == 0:
                             print("| Il n'y aura plus de stock pour ce plat.")
@@ -222,6 +227,8 @@ def lieu_salle_entrainement():
                 observ_lieu("SalleEntrainement")
             elif reponse_action == 2:
                 fight()
+            elif reponse_action == 3:
+                upgrade_jutsu()
         print("└────────────────────────────────────────")
 
 def lieu_casier():
