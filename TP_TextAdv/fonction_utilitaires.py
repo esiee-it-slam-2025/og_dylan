@@ -92,14 +92,22 @@ def proposer_action_lieu(lieu, choix):
 # fonction pour le combat dans la salle d'entrainement
 def fight():
     os.system("cls")
-    print("Vous combattez un mannequin d'entrainement. Il a 50 PV.")
+    print(f"Vous combattez un mannequin d'entrainement. Il a {mannequin["PV"]} PV.")
     fuir = "non"
+
+    # ajout de deux variables pour éviter le bug de float.
+    min_dmg = int(mannequin["DMG_min"])
+    max_dmg = int(mannequin["DMG_max"])
+
     while mannequin["PV"] > 0 and fuir != "oui":
-        mannequin_degat = random.randint(mannequin["DMG_min"], mannequin["DMG_max"])
+        print("PV restants de ",personnage["Prénom"],":", personnage["PV"])
+        print("PV restants du mannequin :", mannequin["PV"])
+        print("\n")
+        mannequin_degat = random.randint(min_dmg, max_dmg)
         reponse_action = verif_int("| Que voulez-vous faire?\n| 1 - Attaquer\n| 2 - Manger\n| 3 - Fuir\n", 3)
         if reponse_action == 1:
             print(personnage["Jutsu"] + "!!!!!!\n-" + str(jutsus[personnage["Jutsu"]]["dégat"]) + " PV !!!!\n")
-            jutsus[personnage["Jutsu"]]["dégat"]
+            mannequin["PV"] -= jutsus[personnage["Jutsu"]]["dégat"]
             time.sleep(3)
             if mannequin["PV"] > 0 :
                 print("Le mannequin réplique et envoie son poing malicieux! -"+str(mannequin_degat)+" PV pour vous.")
@@ -135,15 +143,13 @@ def fight():
             personnage["Badges"] += 1
             time.sleep(4)
             os.system("cls") 
-            continue
+            #Amélioration du mannequin, augmentation de la difficulté à chaque victoire
+            mannequin["PV_init"] *= 1.08
+            mannequin["PV"] = mannequin["PV_init"]
+            mannequin["DMG_min"] *= 1.25
+            mannequin["DMG_max"] *= 1.25
+            break
         
-        print("PV restants de ",personnage["Prénom"],":", personnage["PV"])
-        print("PV restants du mannequin :", mannequin["PV"])
-        print("\n")
-        #Amélioration du mannequin, augmentation de la difficulté à chaque victoire
-        mannequin["PV"] = 50* 1.08
-        mannequin["DMG_min"] *= 1.25
-        mannequin["DMG_max"] *= 1.25
 
 # fonction pour afficher les plats disponibles
 def affich_eat(inventory):

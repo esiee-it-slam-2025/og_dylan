@@ -10,7 +10,8 @@ personnage = {
 
 # Dictionnaire pour le mannequin
 mannequin = {
-    "PV" : 50,
+    "PV_init" : 45,
+    "PV" : 45,
     "DMG_min" : 7,
     "DMG_max" : 25
 }

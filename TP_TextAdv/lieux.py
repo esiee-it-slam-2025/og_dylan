@@ -103,8 +103,8 @@ def lieu_classe_1A():
                     os.system("cls") 
                     objets_cles.append("Clé")
                 else:
-                    print("Vous avez déjà la clé.")
                     os.system("cls")
+                    print("Vous avez déjà la clé.")
                     time.sleep(2)
             elif reponse_action == 3:
                 if personnage["Badges"] != 0:
