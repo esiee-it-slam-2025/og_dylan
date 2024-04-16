@@ -20,7 +20,7 @@ mannequin = {
 jutsus = {
     "Rasengan": {
         "dégat" : 20,
-        "niveau" : 5,
+        "niveau" : 0,
     },
     "Chidori": {
         "dégat": 25,

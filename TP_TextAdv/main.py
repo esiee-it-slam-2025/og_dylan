@@ -19,7 +19,7 @@ class Interface:
         interface.maj_lieu(interface.emplacement)
 
     def maj_lieu(interface, nom_lieu):
-        chemin_image = f"C:/Users/MoPiM/Desktop/portfolio/python/og_dylan/TP_TextAdv/images/{nom_lieu}.jpg" # <---------------------- VEUILLEZ CHANGER LE CHEMIN D'ACCES ICI POUR POUVOIR AFFICHER LES IMAGES
+        chemin_image = f"C:/Users/MoPiM/Desktop/python/dydy/og_dylan/TP_TextAdv/images/{nom_lieu}.jpg" # <---------------------- VEUILLEZ CHANGER LE CHEMIN D'ACCES ICI POUR POUVOIR AFFICHER LES IMAGES
         image = Image.open(chemin_image)
 
         image_resized = image.resize((720, 480), Image.Resampling.BILINEAR )

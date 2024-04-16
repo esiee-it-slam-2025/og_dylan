@@ -46,7 +46,7 @@ def choix_jutsus():
 
 # fonction pour créer le personnage au début du programme 
 def create_perso():
-    personnage["Age"] = int(input("\nQuel âge as-tu ?\n"))
+    personnage["Âge"] = int(input("\nQuel âge as-tu ?\n"))
     personnage["Prénom"] = input("Comment t'appelles-tu ?\n")
     os.system("cls")
     init_jutsu()
