@@ -137,7 +137,6 @@ def verif_victoire(grille, grille_joueur):
     sys.exit()
 
 def main():
-    ajouter_au_leaderboard("caca", 400)
     os.system("cls")
     # CHOIX DE LA DIFFICULTE
     choix_difficulte = 0
