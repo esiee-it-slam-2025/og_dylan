@@ -126,13 +126,5 @@
         "seat": "P-51",
         "price": 60,
         "currency": "EUR"
-    },
-    {
-        "id": "35b5a298-696c-480e-a542-e47c184bef66",
-        "event_id": 8,
-        "category": "Silver",
-        "seat": "T-19",
-        "price": 192,
-        "currency": "EUR"
     }
 ]

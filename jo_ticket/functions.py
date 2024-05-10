@@ -109,8 +109,8 @@ def generate_tickets():
             # Save the modified ticket image with a filename based on team names and seat
             img.save(f"tickets/{home_team}-{away_team}_{seat}.png")
 
-            print("\nTickets successfully generated !")
-            time.sleep(2)
+    print("\nTickets successfully generated !")
+    time.sleep(2)
 
 # Function to create a new ticket
 def create_ticket():
