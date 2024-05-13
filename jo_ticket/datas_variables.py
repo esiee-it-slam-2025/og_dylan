@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw, ImageFont
 # Loading data from JSON files
 events = json.load(open('events.json', 'r', encoding="utf-8"))
 stadiums = json.load(open('stadiums.json', 'r', encoding="utf-8"))
-tickets = json.load(open('tickets.json', 'r', encoding="utf-8")) 
+tickets = json.load(open('tickets.json', 'r', encoding="utf-8"))
 
 # Loading font types
 font36 = ImageFont.truetype('fonts/Paris2024.ttf', 36, encoding="utf-8") 

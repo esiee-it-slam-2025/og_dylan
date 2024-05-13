@@ -1,9 +1,12 @@
-import json, os, time, uuid, re, qrcode
+import json, os, time, uuid, re, qrcode, sys
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageTk
 import tkinter as tk
 from datas_variables import *
 
+# Déclaration de la classe de notre exception
+class TicketError(Exception):
+    pass
 
 # ****************************************************************************************************************************************************************
 # /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  /  FUNCTION
@@ -51,6 +54,10 @@ def recursive_loading_bar(percentage):
 # Function to clear the 'tickets' folder
 def clear_folder():
     os.system("cls")
+    # Create 'tickets' if it doesn't exist.
+    if not os.path.exists("tickets"):
+        os.makedirs("tickets")
+
     print("Deleting existing files in the folder...")
     time.sleep(2)
     for fichier in os.listdir("tickets"):
@@ -68,8 +75,18 @@ def generate_tickets():
     os.system("cls")
     print("Generating tickets...")
     recursive_loading_bar(0)
-    for ticket in tickets:
 
+    # Load tickets from 'newTickets.json' if it exists
+    if os.path.exists('newTickets.json'):
+        with open('newTickets.json', 'r', encoding='utf-8') as f:
+            new_tickets = json.load(f)
+    else:
+        new_tickets = []
+
+    # Combine the current tickets and new tickets
+    all_tickets = tickets + new_tickets
+
+    for ticket in all_tickets:
         # Finding the event associated with the ticket
         event = next(filter(lambda x: x["id"] == ticket["event_id"], events), None)
         stadium = next(filter(lambda x: x["id"] == event["stadium_id"], stadiums), None)
@@ -126,45 +143,75 @@ def create_ticket():
     event_id = verif_int("\nEnter the ID of the game for which you are creating the ticket: ", len(events))
     
     # Prompt the user for currency (EUR or USD)
-    currency = ""
-    while currency not in ["EUR", "USD"]:
-        currency = input("Currency (EUR or USD): ").upper()
+    currency = input("Currency (EUR or USD): ").upper()
+    try:
+        if currency not in ["EUR", "USD"]:
+            raise TicketError("\nInvalid currency. Please enter EUR or USD.")
+    except TicketError as e:
+        print(e)
+        sys.exit()
+
     
     # Prompt the user for ticket category (Silver, Gold, or Platinum)
-    category = ""
-    while category not in ["Silver", "Gold", "Platinum"]:
-        category = input("Category (Silver, Gold, or Platinum): ")
+    category = input("Category (Silver, Gold, or Platinum): ")
+    try:
+        if category not in ["Silver", "Gold", "Platinum"]:
+            raise TicketError("\nInvalid category. Please enter Silver, Gold, or Platinum.")
+    except TicketError as e:
+        print(e)
+        sys.exit()
     
-    # Validate and prompt the user for seat number (format LETTER-XX)
+    # Prompt the user for seat number (format LETTER-XX)
     seat_pattern = re.compile(r'^[A-Z]-\d{2}$')
-    seat = ""
-    while not seat_pattern.match(seat):
-        seat = input("Seat Number (format LETTER-XX): ").strip().upper()
+    seat = input("Seat Number (format LETTER-XX): ").strip().upper()
+    try:
         if not seat_pattern.match(seat):
-            print("Invalid format. Please enter seat number in the format LETTER-XX (e.g., A-10).")
+            raise TicketError("\nInvalid format. Please enter seat number in the format LETTER-XX (e.g., A-10).")
+    except TicketError as e:
+        print(e)
+        sys.exit()
     
+    # Prompt the user for ticket price
+    while True:
+        try:
+            price = int(input("Ticket Price: "))
+            break
+        except TicketError:
+            print("Invalid input. Please enter a valid integer for the ticket price.")
+
     # Create a new ticket with provided details
     new_ticket = {
         "id": str(uuid.uuid4()),
         "event_id": event_id,
         "category": category,
         "seat": seat,
-        "price": int(input("Ticket Price: ")),
+        "price": price,
         "currency": currency
     }
 
-    print("Creating a new ticket...\n")
+    print("Creating a new ticket...")
     recursive_loading_bar(0)
     
-    # Add the new ticket to the list of tickets
-    tickets.append(new_ticket)
-    
-    # Save the updated list of tickets to a JSON file
-    with open('tickets.json', 'w', encoding='utf-8') as f:
-        json.dump(tickets, f, ensure_ascii=False, indent=4)
-    
+    # Check if 'newTickets.json' file exists
+    if not os.path.exists('newTickets.json'):
+        # If the file doesn't exist, create it and write new tickets
+        with open('newTickets.json', 'w', encoding='utf-8') as f:
+            write_tickets = [new_ticket]
+            json.dump(write_tickets, f, ensure_ascii=False, indent=4)
+    else:
+        # If the file already exists, open it and load existing tickets
+        with open('newTickets.json', 'r', encoding='utf-8') as f:
+            Ntickets = json.load(f)
+            # Append the new ticket to the existing list of tickets
+            Ntickets.append(new_ticket)
+        
+        # Write the updated list of tickets back to the file
+        with open('newTickets.json', 'w', encoding='utf-8') as f:
+            json.dump(Ntickets, f, ensure_ascii=False, indent=4)
+
     print("\nNew ticket created successfully!")
     time.sleep(2)
+
 
 
 # Function to display a ticket using Tkinter
