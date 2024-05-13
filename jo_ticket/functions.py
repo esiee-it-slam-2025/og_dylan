@@ -1,5 +1,5 @@
 import json, os, time, uuid, re, qrcode, sys
-from datetime import datetime
+from datetime import datetime, timedelta
 from PIL import Image, ImageDraw, ImageTk
 import tkinter as tk
 from datas_variables import *
@@ -32,7 +32,7 @@ def verif_int(texte, lim):
 
 # Function to format datetime string
 def format_datetime(iso_datetime):
-    dt = datetime.fromisoformat(iso_datetime)
+    dt = datetime.fromisoformat(iso_datetime) + timedelta(hours=2)
     formatted_date = dt.strftime("%d/%m/%Y")
     formatted_time = dt.strftime("%H:%M")
     return formatted_date, formatted_time

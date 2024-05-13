@@ -10,14 +10,14 @@ from functions import *
 def main():
     while True:
         os.system("cls")
-        
+
         # Display the welcome message and available actions
-        print("\n       ////////////                                          ")
-        print("          ///       //   //////     //  //   //////  /////// ")
-        print("        ///       //   ///        //  //    //___     //     ")
-        print("       ///       //   //         ////      //        //      ")
-        print("     ///       //     //////   //   //    //////    //       ")
-        print("\nWelcome to the Ticket Machine.")
+        print("\n                      ////////////                                                 ////////////    ///////")
+        print("                         ///      //   //////    //  //    //////  ///////            ///       //       // ")
+        print("                       ///      //   ///        //  //    //___     //               //       //       //   ")
+        print("                     ///       //   //         ////      //        //         //   //        //       //    ")
+        print("                    ///       //     //////   //   //   //////    //          ////            ///////       ")
+        print("\n\nWelcome to the Ticket Machine.")
         show_actions()
         
         # Prompt the user to choose an action
