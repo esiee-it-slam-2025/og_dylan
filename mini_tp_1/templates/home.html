@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <h1>Liste des équipes</h1>
+    <ul>
+        {% for team_name, team_info in teams.items %}
+            <li><a href="{% url 'team' team_name %}">{{ team_name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

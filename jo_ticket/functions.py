@@ -268,4 +268,3 @@ def display_available_tickets():
             print("Invalid choice. Please enter a valid number.")
     except ValueError:
         print("Invalid choice. Please enter a valid number.")
-

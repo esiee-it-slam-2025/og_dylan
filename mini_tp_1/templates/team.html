@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team</title>
+</head>
+<body>
+    <h1>Informations sur l'équipe</h1>
+    <h2>{{ team.nickname }}</h2>
+
+    <p>
+        {% if team.win >= 10 %}
+            Cette équipe a plus de 10 victoires.
+        {% else %}
+            Cette équipe a moins de 10 victoires.
+        {% endif %}
+    </p>
+
+    <p>
+        <a href="{% url 'team_data' team_name %}">Données de l'équipe en JSON</a>
+    </p>
+</body>
+</html>
