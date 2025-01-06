@@ -6,19 +6,14 @@
     <title>Team</title>
 </head>
 <body>
+    <button onclick="window.location.href='{% url 'home' %}'">Accueil</button>
     <h1>Informations sur l'équipe</h1>
     <h2>{{ team.nickname }}</h2>
 
-    <p>
-        {% if team.win >= 10 %}
-            Cette équipe a plus de 10 victoires.
-        {% else %}
-            Cette équipe a moins de 10 victoires.
-        {% endif %}
-    </p>
+    <p>{{ message }}</p>
 
     <p>
-        <a href="{% url 'team_data' team_name %}">Données de l'équipe en JSON</a>
+        <button onclick="window.location.href='{% url 'team_data' team_name %}'">Données de l'équipe en JSON</button>
     </p>
 </body>
 </html>

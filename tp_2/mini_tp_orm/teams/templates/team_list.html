@@ -1,0 +1,46 @@
+<!-- teams/templates/team_list.html -->
+{% extends "base.html" %}
+
+{%load static%}
+<link rel="stylesheet" href="{% static 'styles.css' %}">
+
+{% block content %}
+    <h2>Liste des équipes</h2>
+    {% if teams %}
+        <ul>
+        {% for team in teams %}
+            <li>
+                {{ team.name }} ({{ team.nickname }}) - Couleurs : {{ team.color1 }} et {{ team.color2 }}
+                <form method="post" action="{% url 'delete_team' team.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Supprimer</button>
+                </form>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune équipe disponible.</p>
+    {% endif %}
+    <h2>Ajouter des équipes !</h2>
+    <form method="post" class="team-form">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-group">
+            <label for="{{ form.name.id_for_label }}">Nom</label>
+            {{ form.name }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.nickname.id_for_label }}">Surnom</label>
+            {{ form.nickname }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.color1.id_for_label }}">Couleur 1</label>
+            {{ form.color1 }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.color2.id_for_label }}">Couleur 2</label>
+            {{ form.color2 }}
+        </div>
+        <button type="submit">Ajouter</button>
+    </form>
+{% endblock %}
