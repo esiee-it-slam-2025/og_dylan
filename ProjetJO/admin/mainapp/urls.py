@@ -1,7 +1,15 @@
 from django.urls import path
-from .views import stadiums
+from .views import stadiums,events,teams,inscription,connexion,deconnexion,admin,edit_event
 
-# Un exemple de endpoint qui renverait les stades... Si la vue était faite :)
+
 urlpatterns = (
-    path("api/stadiums", stadiums),
+    path('inscription/', inscription, name="inscription"),
+    path('', connexion, name="connexion"),
+    path('deconnexion/', deconnexion, name="deconnexion"),
+    path('admin/', admin, name="admin"),
+    path("api/stadiums/", stadiums),
+    path('api/events/', events),
+    path('api/teams/', teams),
+     path('edit_event/<int:event_id>/', edit_event, name='edit_event'),
+
 )

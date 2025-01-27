@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+    <title>Liste des Événements</title>
+</head>
+
+<body>
+    <div class="top-right">
+        <a href="{% url 'deconnexion' %}" class="logout-btn">Se déconnecter</a>
+    </div>
+    <div class="container">
+        <h1>Liste des Événements</h1>
+        <table class="events-table">
+            <thead>
+                <tr>
+                    <th>Équipe à domicile</th>
+                    <th>Équipe à l'extérieur</th>
+                    <th>Score</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in events_with_stadiums %}
+                <tr class="event-row">
+                    <td>
+                        {% if item.event.team_home %}
+                        {{ item.event.team_home.name }}
+                        {% else %}
+                        <span class="no-team">N/A</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if item.event.team_away %}
+                        {{ item.event.team_away.name }}
+                        {% else %}
+                        <span class="no-team">N/A</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if item.event.score %}
+                        {{ item.event.score }}
+                        {% else %}
+                        <span class="no-score">Non attribué</span>
+                        {% endif %}
+                    </td>
+                    <td class="date">{{ item.event.start|date:'d/m/Y H:i' }}</td>
+                    <td>
+                        <button class="edit-btn"
+                            onclick="window.location.href='{% url 'edit_event' item.event.id %}'">Modifier</button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

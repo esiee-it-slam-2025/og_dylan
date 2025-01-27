@@ -12,8 +12,7 @@ SECRET_KEY = "velicyjh0)jmde&@qj=_)hzik!&sw4ml8b92ni&!y@=cu(-hj8"
 
 
 INSTALLED_APPS = [
-    # On explicite l"usage de notre application pour que les templates
-    # soient détectés automatiquement par Django
+    'rest_framework',
     "corsheaders",
     "mainapp.apps.MainappConfig",
     "django.contrib.admin",
@@ -60,14 +59,13 @@ TEMPLATES = [
 # https://docs.djangoproject.com/fr/3.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        # !!! A remplacer avec vos informations de connexion !!!
-        'NAME': "jo_project_starter",
-        "USER": "root",
-        "PASSWORD": "",
-        "HOST": "127.0.0.1",
-        "PORT": "",
+    'default': {
+    'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'api_JOTICKET',
+    'USER': 'root', 
+    'PASSWORD':'',
+    'HOST': '127.0.0.1', 
+    'PORT': '3306', 
     }
 }
 
@@ -113,13 +111,14 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/fr/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+LOGIN_URL = 'connexion'
 
 # GESTION DES AUTORISATIONS
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1:5500",  # Adresse URL local sur le port liveserver
+    "http://127.0.0.1:8000",
 ]
 ALLOWED_HOSTS = [
-    '127.0.0.1',  # Pour les tests en local
+    '127.0.0.1', 
 ]
