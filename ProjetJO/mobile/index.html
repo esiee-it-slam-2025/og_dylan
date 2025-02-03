@@ -1,9 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>JO Project</title>
-	</head>
-	<body></body>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion / Inscription</title>
+    <link rel="stylesheet" href="styles/index.css">
+</head>
+
+<body>
+    <header class="ontop">
+        <button id="loginButton">
+            <img src="assets/images/login_icon.png" alt="Se connecter">
+        </button>
+        <div id="profileMenu" class="hidden">
+            <button id="profileButton">
+                <img src="assets/images/login_icon.png" alt="Profil">
+            </button>
+            <div id="profileDropdown" class="dropdown-content hidden">
+                <a href="#" id="myTickets">Mes tickets</a>
+                <a href="#" id="logout">Déconnexion</a>
+            </div>
+        </div>
+        <img src="assets/JO Icons.svg" alt="JO Icons">
+    </header>
+
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Connexion</h2>
+
+            <form id="loginForm">
+                <h3>Nom d'utilisateur</h3>
+                <input type="text" id="loginUsername" required>
+                <h3>Mot de passe</h3>
+                <input type="password" id="loginPassword" required>
+                <button id="authSubmit" type="submit">Se connecter</button>
+            </form>
+
+            <form id="registerForm" class="hidden">
+                <h3>Nom d'utilisateur</h3>
+                <input type="text" id="registerUsername" required>
+                <h3>Mot de passe</h3>
+                <input type="password" id="registerPassword" required>
+                <button type="submit">S'inscrire</button>
+            </form>
+
+            <div id="center">
+                <button id="toggleAuth">Pas encore inscrit ?</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal-backdrop"></div>
+
+    <h1>Événements à venir</h1>
+    <div id="eventsList"></div>
+
+    <script type="module" src="scripts/api.js"></script>
+    <script type="module" src="scripts/utils.js"></script>
+    <script type="module" src="scripts/modal.js"></script>
+    <script type="module" src="scripts/auth.js"></script>
+    <script type="module" src="scripts/events.js"></script>
+    <script type="module" src="scripts/main.js"></script>
+</body>
+
 </html>

@@ -6,6 +6,7 @@ class Team(models.Model):
     # Code du pays au format ISO 3166-1 alpha-2
     code = models.CharField(max_length=3, default="XXX")
     nickname = models.CharField(max_length=100)
+    flag = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
