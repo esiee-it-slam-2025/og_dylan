@@ -1,25 +1,10 @@
 from django.urls import path
-<<<<<<< HEAD
 from .views import (
     stadiums, events, teams, team_detail, 
     inscription, connexion, deconnexion, administration, 
     edit_event, user_login, register
-=======
-from .views import stadiums,events,teams,inscription,connexion,deconnexion,admin,edit_event
-
-
-urlpatterns = (
-    path('inscription/', inscription, name="inscription"),
-    path('', connexion, name="connexion"),
-    path('deconnexion/', deconnexion, name="deconnexion"),
-    path('admin/', admin, name="admin"),
-    path("api/stadiums/", stadiums),
-    path('api/events/', events),
-    path('api/teams/', teams),
-     path('edit_event/<int:event_id>/', edit_event, name='edit_event'),
-
->>>>>>> 4b9efafc97361e76536dc3be53676cbeebfe08b9
 )
+from .views import stadiums,events,teams,inscription,connexion,deconnexion,admin,edit_event
 from django.contrib import admin
 
 urlpatterns = [

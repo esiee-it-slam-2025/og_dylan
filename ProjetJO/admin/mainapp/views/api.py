@@ -1,6 +1,5 @@
 from django.http import JsonResponse
 from ..models import Event, Stadium, Team
-<<<<<<< HEAD
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import authenticate
@@ -45,8 +44,6 @@ def user_login(request):
             return JsonResponse({'error': str(e)}, status=400)
     else:
         return JsonResponse({'error': 'Méthode non autorisée.'}, status=405)
-=======
->>>>>>> 4b9efafc97361e76536dc3be53676cbeebfe08b9
 
 def stadiums(request):
     stadiums = Stadium.objects.all()
@@ -55,7 +52,6 @@ def stadiums(request):
     if stadium_id:
         stadiums = stadiums.filter(id=stadium_id)
 
-<<<<<<< HEAD
     stadiums_data = [{
         "id": stadium.id,
         "name": stadium.name,
@@ -84,7 +80,6 @@ def teams(request):
         "code": team.code,
         "flag": f"assets/flags/{team.code}.svg"
     } for team in teams]
-=======
     stadiums_data = []
     for stadium in stadiums:
         stadiums_data.append({
@@ -111,8 +106,6 @@ def teams(request):
             "code": team.code,
             "flag": f"flags/{team.code}.svg"  
         })
-
->>>>>>> 4b9efafc97361e76536dc3be53676cbeebfe08b9
     return JsonResponse(teams_data, safe=False)
 
 def events(request):
@@ -121,10 +114,7 @@ def events(request):
     stadium_id = request.GET.get('stadium_id')
     team_id = request.GET.get('team_id')
     game_id = request.GET.get('game_id')
-<<<<<<< HEAD
     start_date = request.GET.get('start')
-=======
->>>>>>> 4b9efafc97361e76536dc3be53676cbeebfe08b9
 
     if stadium_id:
         events = events.filter(stadium_id=stadium_id)
@@ -132,7 +122,6 @@ def events(request):
         events = events.filter(team_home_id=team_id) | events.filter(team_away_id=team_id)
     if game_id:
         events = events.filter(id=game_id)
-<<<<<<< HEAD
     if start_date:
         parsed_date = parse_date(start_date)
         if parsed_date:
@@ -162,32 +151,3 @@ def events(request):
     } for event in events]
 
     return JsonResponse(event_list, safe=False)
-=======
-
-    event_list = []
-    for event in events:
-        event_list.append({
-            "id": event.id,
-            "stadium": {
-                "id": event.stadium.id,
-                "name": event.stadium.name,
-                "location": event.stadium.location,
-            },
-            "team_home": {
-                "id": event.team_home.id,
-                "name": event.team_home.name,
-            } if event.team_home else None,
-            "team_away": {
-                "id": event.team_away.id,
-                "name": event.team_away.name,
-            } if event.team_away else None,
-            "start": event.start,
-            "score": event.score,
-            "winner": {
-                "id": event.winner.id,
-                "name": event.winner.name,
-            } if event.winner else None,
-        })
-
-    return JsonResponse(event_list, safe=False)
->>>>>>> 4b9efafc97361e76536dc3be53676cbeebfe08b9

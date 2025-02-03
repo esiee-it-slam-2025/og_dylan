@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -28,7 +27,6 @@ def connexion(request):
 
 def deconnexion(request):
     logout(request)
-=======
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -59,5 +57,4 @@ def connexion(request):
 
 def deconnexion(request):
     logout(request)
->>>>>>> 4b9efafc97361e76536dc3be53676cbeebfe08b9
     return redirect('connexion')

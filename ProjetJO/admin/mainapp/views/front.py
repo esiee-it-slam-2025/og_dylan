@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,get_object_or_404, redirect
 from ..models import Event, Stadium, Team
@@ -55,7 +54,6 @@ def edit_event(request, event_id):
         form = EventForm(instance=event)
 
     return render(request, 'edit_event.html', {'form': form, 'event': event})
-=======
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,get_object_or_404, redirect
 from ..models import Event, Stadium, Team
@@ -108,4 +106,3 @@ def edit_event(request, event_id):
         form = EventForm(instance=event)
 
     return render(request, 'edit_event.html', {'form': form, 'event': event})
->>>>>>> 4b9efafc97361e76536dc3be53676cbeebfe08b9

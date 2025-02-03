@@ -12,10 +12,6 @@ SECRET_KEY = "velicyjh0)jmde&@qj=_)hzik!&sw4ml8b92ni&!y@=cu(-hj8"
 
 
 INSTALLED_APPS = [
-<<<<<<< HEAD
-=======
-    'rest_framework',
->>>>>>> 4b9efafc97361e76536dc3be53676cbeebfe08b9
     "corsheaders",
     'rest_framework',
     "mainapp.apps.MainappConfig",
@@ -117,17 +113,13 @@ STATIC_URL = "/static/"
 # https://docs.djangoproject.com/fr/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-<<<<<<< HEAD
 # LOGIN_URL = 'connexion'
-=======
 LOGIN_URL = 'connexion'
->>>>>>> 4b9efafc97361e76536dc3be53676cbeebfe08b9
 
 # GESTION DES AUTORISATIONS
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
-<<<<<<< HEAD
     "http://127.0.0.1:5500",
     "http://localhost:5500"
 ]
@@ -135,10 +127,8 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     'http://127.0.0.1:5500'
-=======
     "http://127.0.0.1:8000",
 ]
 ALLOWED_HOSTS = [
-    '127.0.0.1', 
->>>>>>> 4b9efafc97361e76536dc3be53676cbeebfe08b9
+    '127.0.0.1',
 ]

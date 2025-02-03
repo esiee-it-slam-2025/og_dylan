@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import Event
@@ -27,7 +26,6 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ['stadium','team_home', 'team_away', 'score', 'start']
-=======
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import Event
@@ -56,4 +54,3 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ['team_home', 'team_away', 'score', 'start']
->>>>>>> 4b9efafc97361e76536dc3be53676cbeebfe08b9
