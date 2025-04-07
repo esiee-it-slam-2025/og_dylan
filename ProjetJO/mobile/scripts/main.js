@@ -1,15 +1,17 @@
-// main.js - Initialisation des événements DOM
-
 import { setupModalEvents } from "./modal.js";
-import { handleAuth, setupProfileMenu } from "./auth.js";
+import { handleAuth, setupProfileMenu, checkInitialAuth } from "./auth.js";
 import { initEvents } from "./events.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+// Initialise toutes les fonctionnalités de l'application au chargement
+document.addEventListener("DOMContentLoaded", async () => {
+    await checkInitialAuth();
+
     const toggleAuthBtn = document.getElementById('toggleAuth');
     const loginForm = document.getElementById('loginForm');
     const registerForm = document.getElementById('registerForm');
     const modalTitle = document.getElementById('modalTitle');
 
+    // Configure la bascule entre les formulaires de connexion et d'inscription
     toggleAuthBtn.addEventListener('click', () => {
         if (loginForm.classList.contains('hidden')) {
             loginForm.classList.remove('hidden');

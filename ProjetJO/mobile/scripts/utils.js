@@ -1,6 +1,4 @@
-// utils.js - Fonctions utilitaires
-
-// Récupérer un cookie
+// Récupère un cookie par son nom
 export function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== "") {
@@ -16,7 +14,7 @@ export function getCookie(name) {
     return cookieValue;
 }
 
-// Formater une date
+// Formate une date au format français
 export function formatDate(dateString) {
     const date = new Date(dateString);
     return date.toLocaleString('fr-FR', {
@@ -26,4 +24,18 @@ export function formatDate(dateString) {
         hour: '2-digit',
         minute: '2-digit'
     });
+}
+
+// Affiche une notification temporaire
+export function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => notification.classList.add('show'), 100);
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 500);
+    }, 3000);
 }

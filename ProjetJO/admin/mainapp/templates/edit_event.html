@@ -17,19 +17,45 @@
             {% csrf_token %}
             <div class="form-group">
                 <label for="stadium">Stade</label>
-                {{ form.stadium }}
+                <select name="stadium" id="stadium">
+                    <option value="">-- Aucun stade --</option>
+                    {% for stadium in form.stadium.field.queryset %}
+                    <option value="{{ stadium.id }}" {% if stadium.id == form.stadium.value %}selected{% endif %}>
+                        {{ stadium.name }}
+                    </option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="form-group">
                 <label for="team_home">Équipe à domicile</label>
-                {{ form.team_home }}
+                <select name="team_home" id="team_home">
+                    <option value="">-- Aucune équipe --</option>
+                    {% for team in form.team_home.field.queryset %}
+                    <option value="{{ team.id }}" {% if team.id == form.team_home.value %}selected{% endif %}>
+                        {{ team.name }}
+                    </option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="form-group">
                 <label for="team_away">Équipe à l'extérieur</label>
-                {{ form.team_away }}
+                <select name="team_away" id="team_away">
+                    <option value="">-- Aucune équipe --</option>
+                    {% for team in form.team_away.field.queryset %}
+                    <option value="{{ team.id }}" {% if team.id == form.team_away.value %}selected{% endif %}>
+                        {{ team.name }}
+                    </option>
+                    {% endfor %}
+                </select>
             </div>
-            <div class="form-group">
-                <label for="score">Score</label>
-                {{ form.score }}
+
+            <div class="form-group score-inputs">
+                <label>Score</label>
+                <div class="score-container">
+                    {{ form.score_home }}
+                    <span class="score-separator">-</span>
+                    {{ form.score_away }}
+                </div>
             </div>
             <div class="form-group">
                 <label for="event_date">Date et Heure</label>

@@ -1,0 +1,143 @@
+@font-face {
+    font-family: 'Paris2024';
+    src: url('../../admin/mainapp/static/Paris2024.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.ticket-template {
+    width: 800px;
+    height: 400px;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Paris2024', sans-serif;
+}
+
+.ticket-header {
+    background: linear-gradient(45deg, #1a1a1a, #333);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.ticket-header .logo {
+    height: 50px;
+}
+
+.ticket-type {
+    background: #ffb703;
+    color: #000;
+    padding: 8px 15px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.ticket-content {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.event-details {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.teams {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.team-name {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #1a1a1a;
+}
+
+.vs {
+    font-size: 1.2em;
+    color: #666;
+}
+
+.event-info {
+    color: #444;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.stadium {
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.ticket-footer {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 2px dashed #ccc;
+    padding-left: 25px;
+    min-width: 150px;
+}
+
+.qr-code {
+    margin-bottom: 10px;
+}
+
+.ticket-number {
+    font-size: 0.5em;
+    color: #666;
+}
+
+.ticket-template::before,
+.ticket-template::after {
+    content: '';
+    position: absolute;
+    width: 50px;
+    height: 25px;
+    background: #1a1a1a;
+    right: 150px;
+}
+
+.ticket-template::before {
+    top: -12px;
+    border-radius: 0 0 25px 25px;
+}
+
+.ticket-template::after {
+    bottom: -12px;
+    border-radius: 25px 25px 0 0;
+}
+
+.ticket-owner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.owner-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #2c3e50;
+}
+
+.owner-name {
+    font-size: 1.1em;
+    color: #2c3e50;
+    font-weight: bold;
+}

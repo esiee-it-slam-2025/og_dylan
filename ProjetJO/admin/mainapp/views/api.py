@@ -1,11 +1,13 @@
 from django.http import JsonResponse
-from ..models import Event, Stadium, Team
+from ..models import Event, Stadium, Team, Ticket  
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login, logout
 import json
 from django.shortcuts import get_object_or_404
 from django.utils.dateparse import parse_date
+from django.contrib.auth.decorators import login_required
+
 
 @csrf_exempt 
 def register(request):
@@ -37,13 +39,34 @@ def user_login(request):
 
             user = authenticate(username=username, password=password)
             if user is not None:
-                return JsonResponse({'message': 'Connexion réussie !', 'user_id': user.id}, status=200)
+                login(request, user)  
+                return JsonResponse({
+                    'message': 'Connexion réussie !', 
+                    'user_id': user.id,
+                    'username': user.username
+                }, status=200)
             else:
-                return JsonResponse({'error': 'Nom d\'utilisateur ou mot de passe incorrect.'}, status=400)
+                return JsonResponse({
+                    'error': 'Nom d\'utilisateur ou mot de passe incorrect.'
+                }, status=400)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
-    else:
-        return JsonResponse({'error': 'Méthode non autorisée.'}, status=405)
+    return JsonResponse({})
+
+@csrf_exempt
+def check_auth(request):
+    return JsonResponse({
+        'is_authenticated': request.user.is_authenticated,
+        'username': request.user.username if request.user.is_authenticated else None,
+        'user_id': request.user.id if request.user.is_authenticated else None
+    })
+
+@csrf_exempt
+def user_logout(request):
+    if request.method == 'POST':
+        logout(request)
+        return JsonResponse({'message': 'Déconnexion réussie'})
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
 
 def stadiums(request):
     stadiums = Stadium.objects.all()
@@ -67,28 +90,9 @@ def team_detail(request, team_id):
         "name": team.name,
         "nickname": team.nickname,
         "code": team.code,
-        "flag": f"assets/flags/{team.code}.svg"
+        "flag": f"assets/flags/{team.code}.png"
     }
     return JsonResponse(team_data)
-
-def teams(request):
-    teams = Team.objects.all()
-    teams_data = [{
-        "id": team.id,
-        "name": team.name,
-        "nickname": team.nickname,
-        "code": team.code,
-        "flag": f"assets/flags/{team.code}.svg"
-    } for team in teams]
-    stadiums_data = []
-    for stadium in stadiums:
-        stadiums_data.append({
-            "id": stadium.id,
-            "name": stadium.name,
-            "location": stadium.location,
-        })
-
-    return JsonResponse(stadiums_data, safe=False)
 
 def teams(request):
     teams = Team.objects.all()
@@ -104,7 +108,7 @@ def teams(request):
             "name": team.name,
             "nickname": team.nickname,
             "code": team.code,
-            "flag": f"flags/{team.code}.svg"  
+            "flag": f"flags/{team.code}.png"  
         })
     return JsonResponse(teams_data, safe=False)
 
@@ -130,9 +134,13 @@ def events(request):
     event_list = [{
         "id": event.id,
         "stadium": {
-            "id": event.stadium.id,
-            "name": event.stadium.name,
-            "location": event.stadium.location,
+            "id": event.stadium.id if event.stadium else None,
+            "name": event.stadium.name if event.stadium else "Lieu à déterminer",
+            "location": event.stadium.location if event.stadium else None,
+        } if event.stadium else {
+            "id": None,
+            "name": "Lieu à déterminer",
+            "location": None
         },
         "team_home": {
             "id": event.team_home.id,
@@ -151,3 +159,152 @@ def events(request):
     } for event in events]
 
     return JsonResponse(event_list, safe=False)
+
+@login_required
+def buy_ticket(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            event_id = data.get('event_id')
+            category = data.get('category')
+
+            if not event_id or not category:
+                return JsonResponse({'error': 'event_id et category sont requis'}, status=400)
+
+            event = get_object_or_404(Event, id=event_id)
+
+            ticket = Ticket.objects.create(
+                user=request.user,
+                event=event,
+                category=category,
+            )
+
+            return JsonResponse({
+                'message': 'Ticket acheté avec succès',
+                'ticket_id': str(ticket.id),
+                'price': float(ticket.price),
+                'seat': ticket.seat
+            })
+
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+            
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+
+@csrf_exempt
+@login_required
+def delete_ticket(request, ticket_id):
+    if request.method == 'DELETE':
+        ticket = get_object_or_404(Ticket, id=ticket_id, user=request.user)
+        ticket.delete()
+        return JsonResponse({'message': 'Ticket supprimé'})
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+
+@login_required
+def my_tickets(request):
+    tickets = Ticket.objects.filter(user=request.user).select_related('event', 'event__stadium', 'event__team_home', 'event__team_away')
+    tickets_data = [{
+        'id': str(ticket.id),
+        'event': {
+            'id': ticket.event.id,
+            'team_home': ticket.event.team_home.name if ticket.event.team_home else "À déterminer",
+            'team_away': ticket.event.team_away.name if ticket.event.team_away else "À déterminer",
+            'start': ticket.event.start,
+            'stadium': ticket.event.stadium.name if ticket.event.stadium else "Lieu à déterminer",
+        },
+        'category': ticket.category,
+        'seat': ticket.seat,
+        'price': float(ticket.price),
+        'is_used': ticket.is_used
+    } for ticket in tickets]
+    
+    return JsonResponse(tickets_data, safe=False)
+
+@csrf_exempt
+def verify_ticket(request, ticket_id):
+    try:
+        ticket = get_object_or_404(Ticket, id=ticket_id)
+        
+        if ticket.is_used:
+            return JsonResponse({
+            'valid': False,
+            'error': 'Le ticket n\'est plus valide, il a déjà été scanné.'
+        }, status=400)
+        
+        ticket.is_used = True
+        ticket.save()
+        
+        ticket_data = {
+            'id': str(ticket.id),
+            'event': {
+                'team_home': ticket.event.team_home.name if ticket.event.team_home else "À déterminer",
+                'team_away': ticket.event.team_away.name if ticket.event.team_away else "À déterminer",
+                'start': ticket.event.start.isoformat(),
+                'stadium': ticket.event.stadium.name if ticket.event.stadium else "Lieu à déterminer",
+            },
+            'category': ticket.category,
+            'seat': ticket.seat,
+            'valid': True
+        }
+        return JsonResponse(ticket_data)
+    except Exception as e:
+        return JsonResponse({
+            'valid': False,
+            'error': 'Ticket non trouvé'
+        }, status=404)
+    
+@login_required
+def get_profile(request):
+    profile = request.user.profile
+    profile_data = {
+        'username': request.user.username,
+        'display_name': profile.display_name,
+        'profile_pic': request.build_absolute_uri(profile.profile_pic.url) if profile.profile_pic else None
+    }
+    return JsonResponse(profile_data)
+
+@login_required
+@csrf_exempt
+def update_profile(request):
+    """Mettre à jour le profil"""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+    
+    try:
+        data = json.loads(request.body)
+        profile = request.user.profile
+        
+        # Mise à jour du pseudo
+        if 'display_name' in data:
+            profile.display_name = data['display_name']
+            
+        profile.save()
+        
+        return JsonResponse({
+            'message': 'Profil mis à jour avec succès',
+            'display_name': profile.display_name,
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)
+
+@login_required
+@csrf_exempt
+def upload_profile_pic(request):
+    """Upload de la photo de profil"""
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+    
+    try:
+        if 'image' not in request.FILES:
+            return JsonResponse({'error': 'Aucune image fournie'}, status=400)
+            
+        profile = request.user.profile
+        profile.profile_pic = request.FILES['image']
+        profile.save()
+        
+        return JsonResponse({
+            'message': 'Photo de profil mise à jour',
+            'profile_pic': request.build_absolute_uri(profile.profile_pic.url)
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=400)

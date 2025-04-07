@@ -1,0 +1,175 @@
+@font-face {
+    font-family: 'Paris2024';
+    src: url('../../admin/mainapp/static/Paris2024.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Paris2024;
+    background: linear-gradient(to bottom, rgb(116, 214, 215), rgb(51, 19, 104));
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+
+.ontop {
+    width: 100%;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.back-button {
+    position: absolute;
+    left: 10px;
+    top: 35%;
+    padding: 8px;
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.profile-pic {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.upload-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 0;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.upload-btn {
+    cursor: pointer;
+}
+
+.upload-btn img {
+    width: 24px;
+    height: 24px;
+    filter: invert(1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #2c3e50;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 90%;
+    padding: 12px;
+    border: 2px solid #e1e1e1;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: all 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #2c3e50;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+}
+
+.form-group input:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.save-profile {
+    width: 100%;
+    padding: 12px;
+    background: #2c3e50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 20px;
+}
+
+.save-profile:hover {
+    background: #34495e;
+    transform: translateY(-2px);
+}
+
+.notification {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: top 0.5s;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    min-width: 300px;
+}
+
+.notification.success {
+    background: #4CAF50;
+}
+
+.notification.error {
+    background: #f44336;
+}
+
+.notification.show {
+    top: 20px;
+}

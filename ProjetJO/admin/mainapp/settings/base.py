@@ -2,6 +2,7 @@
 https://docs.djangoproject.com/fr/3.2/topics/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -132,3 +133,19 @@ ALLOWED_HOSTS = [
 ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5500",
+]
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:5500",
+]
+
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SECURE = False 
+CSRF_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SECURE = False 
+CSRF_COOKIE_HTTPONLY = False
+SESSION_COOKIE_HTTPONLY = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

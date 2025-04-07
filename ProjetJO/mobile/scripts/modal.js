@@ -1,5 +1,3 @@
-// modal.js - Gestion des fenêtres modales
-
 export function openModal() {
     const backdrop = document.querySelector('.modal-backdrop');
     const authModal = document.getElementById("authModal");

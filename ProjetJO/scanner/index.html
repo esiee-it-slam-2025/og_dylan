@@ -1,13 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Scaner</title>
-		<script src="index.js"></script>
-		<link rel="stylesheet" href="index.css" />
-	</head>
-	<body>
-		<h1>Scanner de ticket</h1>
-	</body>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scanner de Billets - JO 2024</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="scanner-container">
+        <h1>Scanner de Billets</h1>
+        <div id="reader">
+        </div>
+
+        <div id="ticket-info" class="hidden">
+            <h2>Informations du billet</h2>
+            <div class="ticket-details"></div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+</body>
+
 </html>

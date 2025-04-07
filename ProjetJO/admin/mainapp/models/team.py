@@ -13,4 +13,4 @@ class Team(models.Model):
 
     @property
     def flag(self):
-        return f"flags/{self.code}.svg"
+        return f"flags/{self.code}.png"

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Profil - JO 2024</title>
+    <link rel="stylesheet" href="styles/profile.css">
+</head>
+
+<body>
+    <header class="ontop">
+        <a href="index.html" class="back-button">
+            Retour
+        </a>
+        <img src="assets/JO Icons.svg" alt="JO Icons">
+    </header>
+
+    <div class="profile-container">
+        <h1>Mon Profil</h1>
+
+        <div class="profile-card">
+            <div class="profile-pic-container">
+                <div class="profile-pic">
+                    <img src="../admin/mainapp/media/profil/profile_icon.png" id="currentProfilePic">
+                    <div class="upload-overlay">
+                        <label for="profilePicInput" class="upload-btn">
+                            <img src="assets/images/camera_icon.png" alt="Upload">
+                        </label>
+                    </div>
+                </div>
+                <input type="file" id="profilePicInput" accept="image/*" hidden>
+            </div>
+
+            <form id="profileForm">
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" id="username" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="displayName">Pseudo</label>
+                    <input type="text" id="displayName" required>
+                </div>
+                <button type="submit" class="save-profile">Enregistrer</button>
+            </form>
+        </div>
+    </div>
+    <div class="notification"></div>
+
+    <script type="module" src="scripts/api.js"></script>
+    <script type="module" src="scripts/utils.js"></script>
+    <script type="module" src="scripts/profile.js"></script>
+</body>
+
+</html>

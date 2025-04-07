@@ -1,0 +1,248 @@
+@font-face {
+    font-family: 'Paris2024';
+    src: url('../../admin/mainapp/static/Paris2024.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Paris2024;
+    background: linear-gradient(to bottom, rgb(116, 214, 215), rgb(51, 19, 104));
+    background-attachment: fixed;
+}
+
+h1 {
+    width: 100%;
+    text-align: center;
+    font-size: 2.5em;
+    color: white;
+    margin-top: 20px;
+}
+
+.ontop {
+    width: 100%;
+    padding-top: 10px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.back-button {
+    position: absolute;
+    left: 10px;
+    top: 35%;
+    padding: 8px;
+    text-decoration: none;
+    color: white;
+    font-size: 1.1em;
+}
+
+#myTicketsContainer {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.event-group {
+    background: white;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.event-header {
+    background: #2c3e50;
+    color: white;
+    padding: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tickets-container {
+    display: none;
+    padding: 15px;
+}
+
+.expanded .tickets-container {
+    display: block;
+}
+
+.ticket-card {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    background: #00ff153d;
+}
+
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.ticket-category {
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+}
+
+.ticket-category.SILVER {
+    background: #C0C0C0;
+    color: white;
+}
+
+.ticket-category.GOLD {
+    background: #FFD700;
+    color: black;
+}
+
+.ticket-category.PLATINUM {
+    background: #E5E4E2;
+    color: black;
+}
+
+.ticket-details {
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+.delete-button {
+    background: #ff4444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.qr-code {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.ticket-id {
+    text-align: center;
+    font-size: 0.8em;
+    color: #666;
+}
+
+.no-tickets {
+    text-align: center;
+    color: white;
+    font-size: 1.2em;
+    margin-top: 50px;
+}
+
+.error {
+    color: #ff4444;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.notification {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    border-radius: 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: top 0.5s;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    min-width: 300px;
+}
+
+.notification.success {
+    background: #4CAF50;
+}
+
+.notification.error {
+    background: #f44336;
+}
+
+.notification.show {
+    top: 20px;
+}
+
+.download-qr {
+    background: #4CAF50;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.download-qr img {
+    width: 20px;
+}
+
+.download-ticket {
+    background: rgb(8, 56, 58);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.download-ticket img {
+    width: 45px;
+}
+
+.seat {
+    width: 100%;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.dl-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.team-nickname.undefined {
+    color: #666;
+    font-style: italic;
+}
+
+.dl_t {
+    width: 100%;
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 0;
+}
+
+.ticket-card.used {
+    background: #fff8e1;
+    border: 1px solid #ffecb3;
+    opacity: 0.8;
+}
+
+.used-badge {
+    background: #ff9800;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.ticket-status-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

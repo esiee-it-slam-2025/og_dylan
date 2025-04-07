@@ -1,219 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Se connecter - INTERFACE ADMIN</title>
+    <link rel="stylesheet" href="{% static 'connect.css' %}">
+    <title>Se connecter - Interface Admin</title>
+
 </head>
-
-
-
 <body>
-    <header>
-        <h1>INTERFACE ADMINISTRATEUR</h1>
-    </header>
-    <div class="container">
-        <div class="container-login">
-            <div class="form">
-                <h1>Connexion</h1>
-
-                {% if messages %}
-                <div class="error-messages">
-                    {% for message in messages %}
-                    <p class="error">{{ message }}</p>
-                    {% endfor %}
-                </div>
-                {% endif %}
-
-                <form method="post" action="{% url 'connexion' %}">
-                    {% csrf_token %}
-                    <label for="username">Nom d'utilisateur</label>
-                    <input type="text" name="username" required>
-                    <label for="password">Mot de passe</label>
-                    <input type="password" name="password" required>
-                    <button type="submit">
-                        Se connecter
-                        <span></span><span></span><span></span><span></span>
-                    </button>
-                </form>
-                <p class="link">Pas encore inscrit ? <a href="{% url 'inscription' %}">S'inscrire</a></p>
-            </div>
-        </div>
+    <div class="navbar">
+        <div class="nav-brand">Administration JO 2024</div>
     </div>
 
-    <style>
-        /* CSS */
-        /* Import Google font - Poppins */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+    <div class="container">
+        <h1>Connexion</h1>
+        
+        <div class="form">
+            {% if messages %}
+            <div class="error-messages">
+                {% for message in messages %}
+                <p class="error">{{ message }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        header {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        header h1 {
-            padding-top: 4%;
-            margin-top: 1%;
-            font-size: 3rem;
-        }
-
-        .form {
-            border-radius: 15px;
-            box-shadow: 0px 0px 16px 6px #000000;
-        }
-
-        .container h1 {
-            margin: 20px 0;
-            color: white;
-        }
-
-        body {
-            width: 100%;
-            background: rgba(128, 128, 128, 0.253);
-            align-content: center;
-        }
-
-        .container-logo img {
-            width: 600px;
-            height: 600px;
-        }
-
-        .container {
-            margin-top: 6%;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-
-        }
-
-        .container-login {
-            width: 400px;
-            background: black;
-            border-radius: 15px;
-
-        }
-
-        .container-login .form {
-            padding: 30px;
-        }
-
-        label {
-            padding: 10px 0;
-            color: white;
-            cursor: pointer;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            font-size: 17px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            outline: none;
-            margin-bottom: 15px;
-            margin-top: 10px;
-        }
-
-        a {
-            font-size: 16px;
-            color: rgb(255, 50, 57);
-            text-decoration: none;
-        }
-
-        .link {
-            color: white;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .link {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .error {
-            background-color: transparent;
-            color: rgb(255, 50, 57);
-            border-radius: 6px;
-            padding: 10px;
-            margin-bottom: 10px;
-            font-size: 14px;
-            text-align: center;
-        }
-
-        button {
-            color: rgb(255, 50, 57);
-            --c: white;
-            background-color: rgba(180, 168, 168, 0.281);
-            color: var(--c);
-            font-size: 16px;
-            border: rgb(255, 50, 57);
-            border-radius: 15px;
-            width: 12em;
-            height: 3em;
-            text-transform: uppercase;
-            font-weight: bold;
-            font-family: sans-serif;
-            letter-spacing: 0.1em;
-            text-align: center;
-            line-height: 3em;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-            transition: 0.5s;
-            margin: 1em;
-        }
-
-        button span {
-            position: absolute;
-            width: 25%;
-            height: 100%;
-            background-color: var(--c);
-            transform: translateY(150%);
-            border-radius: 50%;
-            left: calc((var(--n) - 1) * 25%);
-            transition: 0.5s;
-            transition-delay: calc((var(--n) - 1) * 0.1s);
-            z-index: -1;
-        }
-
-        button:hover {
-            color: rgb(255, 50, 57);
-            cursor: pointer;
-        }
-
-        button:hover span {
-            transform: translateY(0) scale(2);
-        }
-
-        button span:nth-child(1) {
-            --n: 1;
-        }
-
-        button span:nth-child(2) {
-            --n: 2;
-        }
-
-        button span:nth-child(3) {
-            --n: 3;
-        }
-
-        button span:nth-child(4) {
-            --n: 4;
-        }
-    </style>
+            <form method="post" action="{% url 'connexion' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur</label>
+                    <input type="text" name="username" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" name="password" id="password" required>
+                </div>
+                <button type="submit">Se connecter</button>
+            </form>
+            <p class="link">Pas encore inscrit ? <a href="{% url 'inscription' %}">S'inscrire</a></p>
+        </div>
+    </div>
 </body>
-
 </html>

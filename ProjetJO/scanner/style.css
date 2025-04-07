@@ -1,0 +1,251 @@
+@font-face {
+    font-family: 'Paris2024';
+    src: url('../admin/mainapp/static/Paris2024.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Paris2024;
+    background: linear-gradient(to bottom, rgb(116, 214, 215), rgb(51, 19, 104));
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.scanner-container {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+#reader {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.upload-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.file-input {
+    display: none;
+}
+
+.upload-button {
+    background: #2c3e50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    transition: background 0.3s;
+}
+
+.upload-button:hover {
+    background: #34495e;
+}
+
+#ticket-info {
+    margin-top: 20px;
+    padding: 20px;
+    border-top: 1px solid #eee;
+}
+
+.ticket-details {
+    display: grid;
+    gap: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.valid {
+    background: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.invalid {
+    background: #f44336;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.ticket-card {
+    background: rgb(255, 255, 255);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ticket-header {
+    padding: 20px;
+    background: linear-gradient(135deg, #00b09b, #96c93d);
+    color: white;
+    text-align: center;
+}
+
+.valid-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 1.1em;
+    backdrop-filter: blur(5px);
+}
+
+.ticket-main {
+    padding: 20px;
+}
+
+.event-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.ticket-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 10px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.label {
+    color: #666;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.value {
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 1.1em;
+}
+
+.ticket-footer {
+    padding: 15px;
+    background: #f8f9fa;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.ticket-id {
+    color: #666;
+    font-size: 0.9em;
+    font-family: monospace;
+}
+
+.ticket-card.invalid {
+    background: #fff5f5;
+    padding: 20px;
+    text-align: center;
+}
+
+.invalid-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #ff4444;
+    color: white;
+    border-radius: 20px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 1.1em;
+}
+
+.scan-again-btn {
+    width: 100%;
+    padding: 12px 20px;
+    margin-top: 20px;
+    background: linear-gradient(135deg, #74d6d7, #331368);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-family: 'Paris2024', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.scan-again-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajouter à votre fichier style.css */
+
+.used-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    background: #ff9800;  /* Couleur orange pour indiquer une utilisation antérieure */
+    color: white;
+    border-radius: 20px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.ticket-card.used {
+    background: #fff8e1;
+    border: 1px solid #ffecb3;
+}
+
+.used-ticket-error {
+    background: #fff8e1;
+    border: 2px solid #ff9800; 
+}
+
+.used-ticket-error .error-message {
+    color: #e65100;
+    font-weight: bold;
+}
