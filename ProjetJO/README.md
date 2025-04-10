@@ -10,7 +10,7 @@ Visual Studio Code avec l'extension Live Server
 
 ## Installation et configuration
 1. Environnement de développement
-	- Installer Python - Télécharger et installer depuis python.org
+	- Installer Python - Télécharger et installer depuis www.python.org
 	- Installer WampServer - Télécharger et installer depuis www.wampserver.com
 
 2. Dépendances Python
